@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <title>Happy new year</title>
+</head>
+<body lang="en">
+    <style>
+        .textblock {
+            font-size: 24pt;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+    </style>
+    <div>
+        <p id="text" class="textblock">
+
+        </p>
+    </div>
+    <script>
+        function popRandomItem(arr){
+            let index = Math.floor(Math.random() * arr.length);
+            let val = arr[index]
+            arr.splice(index, 1)
+            return val
+        }
+        String.prototype.replaceAt = function(index, replacement) {
+            return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+        }
+        let targettext = "\u06F0\u032E\u0311\u25CF\u032E\u0311\u06F0\u2605\u22F0\u22F1\u2606\u22F0\u22F1\u2605\u22F0\u22F1\u2606\u22F0\u22F1\u2605\u22F0\u22F1\u2606\u22F0\u22F1\u2605\u06F0\u032E\u0311\u25CF\u032E\u0311\u06F0\r\n\u2500\u2500\u2500\u2500\u2500\u2500\u2588\u2500\u2588 \u2588\u2580\u2588 \u2588\u2580\u2588 \u2588\u2580\u2588 \u2588\u2500\u2588\u2500\u2500\u2500\u2500\u2500\r\n\u2500\u2500\u2500\u2500\u2500\u2500\u2588\u2580\u2588 \u2588\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2580 \u2580\u2588\u2580\u2500\u2500\u2500\u2500\u2500\r\n\u2500\u2500\u2500\u2500\u2500\u2500\u2580\u2500\u2580 \u2580\u2500\u2580 \u2580\u2500\u2500 \u2580\u2500\u2500 \u2500\u2580\u2500\u2500\u2500\u2500\u2500\u2500\r\n\u2588\u2584\u2500\u2588 \u2588\u2580\u2580 \u2588\u2500\u2588\u2500\u2588\u2500\u2500\u2588\u2500\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588 \u2588\u2580\u2588\r\n\u2588\u2500\u2588\u2588 \u2588\u2580\u2580 \u2588\u2500\u2588\u2500\u2588\u2500\u2500\u2580\u2588\u2580 \u2588\u2580\u2580 \u2588\u2580\u2588 \u2588\u2588\u2580\r\n\u2580\u2500\u2500\u2580 \u2580\u2580\u2580 \u2500\u2580\u2580\u2580\u2500\u2500\u2500\u2500\u2580\u2500 \u2580\u2580\u2580 \u2580\u2500\u2580 \u2580\u2500\u2580"
+        let string = ""
+        console.log(targettext)
+        for (i = 0; i < targettext.length; i++){
+            string = string.concat(String.fromCharCode(Math.floor(Math.random() * 2000)));
+        }
+        let indexesToReplace = Array.from({ length: targettext.length }, (value, index) => index);
+        console.log(indexesToReplace)
+
+        const speed = Math.floor(7)
+
+        const p = document.getElementById('text')
+
+        let timerId = setInterval(() => {
+            if (indexesToReplace.length == 0) clearInterval(timerId);
+            else {
+                for (i = 0; i < speed; i ++){
+                    let index = popRandomItem(indexesToReplace)
+                    console.log(index)
+                    string = string.replaceAt(index, targettext.charAt(index))
+                    if (indexesToReplace.length == 0) break
+                }
+    
+                console.log(string)
+                p.innerText = string;
+            }
+        }, 30)
+    </script>
+</body>
